@@ -23,7 +23,7 @@ function Cabin({cabin}:{cabin:ICabin}):ReactNode {
           </h3>
 
           <p className="text-lg text-primary-300 mb-10">
-            <TextExpander>{description}</TextExpander>
+            <TextExpander>{description||""}</TextExpander>
           </p>
 
           <ul className="flex flex-col gap-4 mb-7">
@@ -48,6 +48,7 @@ function Cabin({cabin}:{cabin:ICabin}):ReactNode {
               </span>
             </li>
           </ul>
+        </div>
         </div>
     )
 }

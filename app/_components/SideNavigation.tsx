@@ -31,8 +31,6 @@ const navLinks = [
 
 function SideNavigation(): ReactNode {
   const pathname = usePathname();
-  console.log(pathname);
-  console.log(pathname === navLinks[0].href);
 
   return (
     <nav className="border-r border-primary-900">

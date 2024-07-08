@@ -9,8 +9,9 @@ const nextConfig = {
         pathname: "/storage/v1/object/public/cabin-images/**",
       },
     ],
+    domains: ["lh3.googleusercontent.com"],
   },
-  //   output:"export"
+  // output: "export",
 };
 
 export default nextConfig;

@@ -12,8 +12,6 @@ interface IProps {
 const CabinList: FC<IProps> = async ({ filter }: { filter: string }) => {
   noStore();
 
-  console.log("CABINS LIST");
-
   const cabins = await getCabins();
 
   if (!cabins.length) return null;

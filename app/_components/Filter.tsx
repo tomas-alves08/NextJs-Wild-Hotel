@@ -16,7 +16,6 @@ function Filter(): ReactNode {
   }
 
   const activeFilter = searchParams.get("capacity") ?? "all";
-  console.log(activeFilter);
 
   return (
     <div className="border border-primary-800 flex">

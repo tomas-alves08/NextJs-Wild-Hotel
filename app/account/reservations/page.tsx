@@ -1,13 +1,15 @@
-import ReservationCard from "@/app/_components/ReservationCard";
+import ReservationList from "@/app/_components/ReservationList";
+import { auth } from "@/app/_services/auth";
 import { getBookings } from "@/app/_services/data-service";
-import { ReactNode } from "react";
+import { FC } from "react";
 
 export const metadata = {
   title: "Reservations",
 };
 
-function Page(): ReactNode {
-  const bookings = [] as any;
+const Page: FC = async () => {
+  const session = await auth();
+  const bookings = await getBookings(session?.user?.id || "");
 
   return (
     <div>
@@ -15,7 +17,7 @@ function Page(): ReactNode {
         Your reservations
       </h2>
 
-      {bookings.length === 0 ? (
+      {bookings?.length === 0 ? (
         <p className="text-lg">
           You have no reservations yet. Check out our{" "}
           <a className="underline text-accent-500" href="/cabins">
@@ -23,14 +25,10 @@ function Page(): ReactNode {
           </a>
         </p>
       ) : (
-        <ul className="space-y-6">
-          {bookings.map((booking: any) => (
-            <ReservationCard booking={booking} key={booking.id} />
-          ))}
-        </ul>
+        <ReservationList bookings={bookings} />
       )}
     </div>
   );
-}
+};
 
 export default Page;

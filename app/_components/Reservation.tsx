@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import DateSelector from "./DateSelector";
 import ReservationForm from "./ReservationForm";
 import {
@@ -6,6 +6,8 @@ import {
   getSettings,
 } from "../_services/data-service";
 import { ICabin } from "../_services/schemas";
+import { auth } from "../_services/auth";
+import LoginMessage from "./LoginMessage";
 
 interface IProps {
   cabin: ICabin;
@@ -16,7 +18,9 @@ const Reservation: FC<IProps> = async ({ cabin }: { cabin: ICabin }) => {
     getBookedDatesByCabinId(cabin.id?.toString() ?? ""),
   ]);
 
-  console.log(settings);
+  const session = await auth();
+
+  console.log(session?.user);
 
   return (
     <div className="grid grid-cols-2 border border-primary-800 min-h-[400px]">
@@ -25,7 +29,15 @@ const Reservation: FC<IProps> = async ({ cabin }: { cabin: ICabin }) => {
         settings={settings}
         bookedDates={bookedDates}
       />
-      <ReservationForm cabin={cabin} />
+      {session?.user ? (
+        <ReservationForm
+          cabin={cabin}
+          name={session?.user?.name || ""}
+          image={session?.user?.email || ""}
+        />
+      ) : (
+        <LoginMessage />
+      )}
     </div>
   );
 };

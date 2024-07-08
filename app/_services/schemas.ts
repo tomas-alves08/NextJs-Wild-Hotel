@@ -1,8 +1,8 @@
 export interface IGuests {
   fullName: string;
   email: string;
-  countryFlag: string;
-  nationalID: string;
+  countryFlag?: string;
+  nationalID?: string;
   country?: string;
   nationality?: string;
 }
@@ -31,7 +31,7 @@ export interface IBooking {
   observations?: string;
   isPaid?: boolean;
   guests?: IGuests;
-  cabins?: { name: string; image?: string };
+  cabins?: ICabin[];
   status?: "unconfirmed" | "checked-in" | "checked-out";
 }
 
@@ -111,10 +111,17 @@ export interface ISignup {
   passwordConfirm?: string;
 }
 
-export interface IUser {
-  fullName?: string;
-  password?: string;
-  avatar?: File | null;
+// export interface IUser {
+//   fullName?: string;
+//   password?: string;
+//   avatar?: File | null;
+// }
+
+export interface IAuthUser {
+  name: string | null | undefined;
+  email: string;
+  image?: string | File | null | undefined;
+  id?: string;
 }
 
 export interface ICountry {
@@ -123,4 +130,9 @@ export interface ICountry {
   independent: boolean;
 }
 
-export type FilterType = "all"|"small"|"medium"|"large";
+export type FilterType = "all" | "small" | "medium" | "large";
+
+export interface IRange {
+  from: Date | undefined;
+  to?: Date | undefined;
+}

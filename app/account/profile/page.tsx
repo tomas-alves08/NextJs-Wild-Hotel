@@ -1,13 +1,16 @@
 import SelectCountry from "@/app/_components/SelectCountry";
 import UpdateProfileForm from "@/app/_components/UpdateProfileForm";
-import { ReactNode } from "react";
+import { auth } from "@/app/_services/auth";
+import { getGuest } from "@/app/_services/data-service";
+import { FC } from "react";
 
 export const metadata = {
   title: "Update profile",
 };
 
-function Page(): ReactNode {
-  const nationality = "portugal";
+const Page: FC = async () => {
+  const session = await auth();
+  const guest = await getGuest(session?.user?.email || "");
 
   return (
     <div>
@@ -19,16 +22,16 @@ function Page(): ReactNode {
         Providing the following information will make your check-in process
         faster and smoother. See you soon!
       </p>
-      <UpdateProfileForm>
+      <UpdateProfileForm guest={guest}>
         <SelectCountry
           name="nationality"
           id="nationality"
           className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
-          defaultCountry={nationality}
+          defaultCountry={guest.nationality}
         />
       </UpdateProfileForm>
     </div>
   );
-}
+};
 
 export default Page;
